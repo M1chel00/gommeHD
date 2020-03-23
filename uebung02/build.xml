@@ -1,0 +1,67 @@
+<?xml version = "1.0"?>
+<project name = "Algebra" basedir="." default = "all">
+	<property name="src.dir" value = "src"/>
+	<property name = "build.dir" value="build" />
+	<property name= "dist.dir" value = "dist" />
+	<property name ="javadoc.dir" value="javadoc" />
+
+	<target name = "build" description = "Compile java source files" depends="clean">
+		<mkdir dir = "${build.dir}"/>
+		<copy toDir="${build.dir}" flatten="true">
+			<path location="${src.dir}/RedBlackTreeDrawer.jar" />
+		</copy>
+		<javac
+                includeantruntime="false"
+                srcdir="${src.dir}"
+                destdir = "${build.dir}" >
+			<compilerarg value="-Xlint:unchecked"/>
+			<classpath path=".;${build.dir}/RedBlackTreeDrawer.jar" />
+		</javac>
+	</target>
+
+	<target name="dist" depends="build"
+        description="generate the distribution">
+		<mkdir dir="${dist.dir}/lib"/>
+
+
+		<jar jarfile="${dist.dir}/lib/Algebra.jar" basedir="${build.dir}">
+			  <manifest>
+			  	<attribute name="Main-Class" value="app.exercise.testing.RPN" />
+			  </manifest>
+		</jar>
+	</target>
+
+	<target name="clean"
+             description="clean up">
+		<delete dir="${build.dir}"/>
+		<delete dir="${dist.dir}"/>
+		<delete dir="${javadoc.dir}" />
+	</target>
+	<target name="javadoc" description="creates javadoc" >
+		<delete dir="${javadoc.dir}"/>
+		<mkdir dir="${javadoc.dir}"/>
+		<javadoc
+         sourcepath="${src.dir}"
+         destdir="${javadoc.dir}">
+			<classpath path="${src.dir}/RedBlackTreeDrawer.jar" />
+		</javadoc>
+	</target>
+	<target name="all" description="Makes a clean rebuild and creates javadoc" depends="dist,javadoc"/>
+
+	<target name="RPN" depends="build" >
+		<java classname="app.exercise.testing.RPN" fork="true">
+			<classpath path = "./${build.dir};./${build.dir}/RedBlackTreeDrawer.jar">
+			</classpath>
+
+		</java>
+	</target>
+
+	<target name="BSTree" depends="build" >
+		<java classname="app.exercise.testing.BSTreeTester" fork="true">
+			<classpath path = "./${build.dir};./${src.dir}/RedBlackTreeDrawer.jar">
+
+			</classpath>
+
+		</java>
+	</target>
+</project>
