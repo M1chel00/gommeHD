@@ -1,0 +1,74 @@
+%% Erläuterungen zu den Befehlen erfolgen unter
+%% diesem Beispiel.
+
+\documentclass{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%%\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\usepackage{graphicx} 
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily}
+\lstset{literate=%
+	{Ö}{{\"O}}1
+	{Ä}{{\"A}}1
+	{Ü}{{\"U}}1
+	{ß}{{\ss}}1
+	{ü}{{\"u}}1
+	{ä}{{\"a}}1
+	{ö}{{\"o}}1
+}
+
+\pagestyle{fancy}
+\fancyhf{} %kopf/fußzeile bereinigen
+
+\fancyhead[L]{APP\\pppg}
+\fancyhead[R]{Projektarbeit\\Dokumentation}
+%\fancyhead[L]{1234}
+%\includegraphics[width=0.3\textwidth]{\logo}\par\vspace{1cm} 
+\vfill
+
+\begin{document}
+\section*{Entpacken des Archivs}
+Das Archiv kann über folgenden Befehl entpackt werden:
+\begin{lstlisting}
+tar xvf pppg.tar
+\end{lstlisting}
+\section*{Quellcode übersetzen und Dokumentation erzeugen}
+Durch den Aufruf von:
+\begin{lstlisting}
+ant
+\end{lstlisting}
+wird der Quelltext compiliert und die Dokumentation erzeugt. Anschließen steht die Datei pppg.jar zur Verfügung. Die Dokumentation steht im Ordner javadoc zur verfügung
+\section*{Starten des Spieles}
+\subsection*{Spielen auf dem lokalem Rechner}
+\begin{lstlisting}
+java -jar pppg.jar -red {human,random,simple,remote} 
+-blue {human,random,simple,remote} -size {3,5,7,9,11}
+\end{lstlisting}
+Im Falle -red remote oder -blue remote, müssen -nameblue/-namered\{String\} und\newline
+ -hostblue/-hostred\{String\} ergänzt werden
+\subsection*{Spielen als Remote}
+\begin{lstlisting}
+java -jar pppg.jar --network -netname {String} 
+-netplayer {human,random,simple} -nethost {host:port}
+\end{lstlisting}
+\subsection*{Optionale Argumente}
+\begin{lstlisting}
+-delay {>=0} --debug 
+--win (deaktiviert alle externen Fenster außer der Graphik)
+\end{lstlisting}
+\subsection*{RMIRegistry starten}
+\begin{lstlisting}
+rmiregistry -J-Djava.rmi.server.codebase=file:
+<Pfad zu benötigten Klassen>
+\end{lstlisting}
+\section*{Bedienung des Spiels}
+Im unterem Bereich des Fensters sind verschiedene Informationen zum Aktuellem Spiel zu sehen.
+Wird man nun aufgefordert einen Zug einzugeben, so muss man, je nach MoveType zwei Links oder eine Site und einen Link anklicken. Die Rheinfolge ist einzuhalten.
+Unten ist auch zu sehen, welche Sites bereits ausgewählt sind. 
+Beim Bewegen der Figur sind alle erreichbaren Site in hell Blau bzw. hell Rot eingefärbt.
+\end{document}

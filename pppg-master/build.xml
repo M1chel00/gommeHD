@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<project name="pppg" default="all">
+	<property name="src.dir" value="src/"/>
+	<property name="build.dir" value="build/"/>
+	<property name="doc.dir" value="javadoc/"/>
+	<property name="jar.file" value="pppg.jar"/>
+	<property name="jar.main" value="nowhere2gopp.mainapp.MainClass"/>
+
+	<path id="master-classpath">
+		<pathelement path="${build.dir}"/>
+	</path>
+
+	<target name="build" description="Builds all class-files">
+		<!-- Verzeichnisse anlegen -->
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${doc.dir}"/>
+
+
+		<!-- Compilieren -->
+		<javac srcdir="${src.dir}"
+			destdir="${build.dir}"
+			includeantruntime="false">
+			<!-- Das sorgt dafuer, dass mehr Warnugnen ausgegeben werden-->
+			<compilerarg value="-Xlint:unchecked" />
+			<!--
+			<classpath>
+				<pathelement path="lib/RedBlackTreeDrawer.jar"/>
+			</classpath>
+			-->
+		</javac>
+	</target>
+
+	<target name="clean" description="Clean output directories">
+		<delete dir="${build.dir}"/>
+		<delete dir="${doc.dir}"/>
+		<delete file="${jar.file}"/>
+	</target>
+
+	<!-- JavaDoc erstellen -->
+	<target name="doc" depends="build" description="Create javadoc">
+		<javadoc sourcepath="${src.dir}" destdir="${doc.dir}"
+			private="true" version="true"/>
+	</target>
+
+	<!-- Jar-Datei erzeugen -->
+	<target name="jar" depends="build" description="Create executable jar">
+		<jar destfile="${jar.file}"
+			basedir="${build.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${jar.main}"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- Clean und alles nochmal machen -->
+	<target name="all"
+	        depends="clean,build,jar,doc"
+		description="Clean and build everything again">
+	</target>
+</project>

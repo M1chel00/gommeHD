@@ -1,0 +1,27 @@
+Code Conventions:
+
+Methoden und Variablen werden im lower camelcase benannt.
+Klassen werden im upper camelcase benannt.
+Final Variablen werden in CAPS benannt.
+
+
+Kommentare:
+Kommentare auf deutscher Sprache ohne Umplaute geschrieben.
+Es werden, außer zur Dokumentation nur Zeilenkommentare genutzt.
+TODO Kommentare sind erlaub, für lokale Probleme
+
+Beim überschreiben von Methoden oder implementierung von Interfaces
+wird "@Override" verwendet
+
+Eine Zeilenlänge von 80 Zeichen darf nicht überschritten werden.
+
+Einrücken mit Tabs und alignet mit spaces.
+
+Wenn ein fehler in fremdem Code entdeckt wird, wird ein issue angelegt.
+Der Code sollte nicht selbst verändert werden.
+
+Es sollte nur Compilirbarer Code gepusht werden.
+
+Exaption
+Keine leeren Catch blöcke
+Auf dei genaue Art der Fehlerbehandlung müssen wir uns noch einigen
