@@ -1,0 +1,73 @@
+name: MSPlugin
+main: de.msclient.msplugin.main.MSPlugin
+version: 1.0
+author: MSES
+api-version: 1.15
+commands:
+  msclient:
+    description: This is an info command.
+    usage: /<command>
+  heal:
+    description: This command will heal the given Player
+    usage: /<command> <Player> <Integer>
+    permission: msclient.heal
+    permission-message: You don't have <permission> 
+  challenge:
+    description: This creates a challenge.
+    usage: /<command>
+    permission: challenge.create
+    permission-message: You don't have <permission> 
+  name:
+    description: This shows the name of the current world.
+    usage: /<command>
+    permission: msclient.name
+    permission-message: You don't have <permission> 
+  lobby:
+    description: Teleports you to the main lobby.
+    usage: /<command>
+  tpw:
+    description: Teleports you to the given world.
+    usage: /<command> <Map-name>
+    permission: msclient.tpw
+    permission-message: You don't have <permission> 
+  timer:
+    description: Start/stop/show the timer of the challenge.
+    usage: /<command> <start:stop>
+    permission: challenge.timer
+    permission-message: You don't have <permission> 
+  loadWorld:
+    description: Loads a world.
+    usage: /<command> <Map-name>
+    permission: msclient.load
+    permission-message: You don't have <permission> 
+permissions:
+  msclient.*:
+    descriptions: Gives access to all msclient commands    
+    children:
+      msclient.heal: true  
+      msclient.tpw: true
+      msclient.load: true
+      msclient.name: true
+  msclient.heal:
+    description: Allows you to heal anouther player.
+    default: op
+  msclient.tpw:
+    description: Teleports you to another world.
+    default: op
+  msclient.load:
+    description: Loads a world.
+    default: op
+  msclient.name:
+    description: Shows the map name.
+    default: op
+  challenge.*:
+    descriptions: Gives acces to all challenge commands.
+    children:
+      challenge.create: true
+      challenge.timer: true
+  challenge.create:
+    description: Allows you to start a challenge
+    default: op
+  challenge.timer:
+    description: Start/stop/shows the timer of the challenge.
+    default: op
